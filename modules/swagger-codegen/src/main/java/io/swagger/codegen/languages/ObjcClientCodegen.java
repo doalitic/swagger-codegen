@@ -220,6 +220,10 @@ public class ObjcClientCodegen extends DefaultCodegen implements CodegenConfig {
         supportingFiles.add(new SupportingFile("Configuration-header.mustache", swaggerFolder, classPrefix + "Configuration.h"));
         supportingFiles.add(new SupportingFile("podspec.mustache", "", podName + ".podspec"));
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
+        supportingFiles.add(new SupportingFile("git_push.sh.mustache", "", "git_push.sh"));
+        supportingFiles.add(new SupportingFile("gitignore.mustache", "", ".gitignore"));
+
+
     }
 
     @Override
@@ -319,6 +323,14 @@ public class ObjcClientCodegen extends DefaultCodegen implements CodegenConfig {
             LOGGER.warn(type+ " (reserved word) cannot be used as model name. Renamed to " + ("model_" + type) + " before further processing");
             type = "model_" + type; // e.g. return => ModelReturn (after camelize)
         }
+
+        // model name starts with number
+        /* no need for the fix below as objc model starts with prefix (e.g. SWG)
+        if (type.matches("^\\d.*")) {
+            LOGGER.warn(type + " (model name starts with number) cannot be used as model name. Renamed to " + camelize("model_" + type));
+            type = "model_" + type; // e.g. 200Response => Model200Response (after camelize)
+        }
+        */
 
         return toModelNameWithoutReservedWordCheck(type);
     }

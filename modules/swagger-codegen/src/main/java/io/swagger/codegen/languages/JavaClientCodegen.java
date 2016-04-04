@@ -301,6 +301,10 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
             importMapping.put("LocalDate", "java.time.LocalDate");
             importMapping.put("LocalDateTime", "java.time.LocalDateTime");
         }
+
+        supportingFiles.add(new SupportingFile("git_push.sh.mustache", "", "git_push.sh"));
+        supportingFiles.add(new SupportingFile("gitignore.mustache", "", ".gitignore"));
+
     }
 
     private boolean usesAnyRetrofitLibrary() {
@@ -390,6 +394,13 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
         if (isReservedWord(camelizedName)) {
             final String modelName = "Model" + camelizedName;
             LOGGER.warn(camelizedName + " (reserved word) cannot be used as model name. Renamed to " + modelName);
+            return modelName;
+        }
+
+        // model name starts with number
+        if (name.matches("^\\d.*")) {
+            final String modelName = "Model" + camelizedName; // e.g. 200Response => Model200Response (after camelize)
+            LOGGER.warn(name + " (model name starts with number) cannot be used as model name. Renamed to " + modelName);
             return modelName;
         }
 
@@ -525,7 +536,9 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
     @Override
     public CodegenModel fromModel(String name, Model model, Map<String, Model> allDefinitions) {
         CodegenModel codegenModel = super.fromModel(name, model, allDefinitions);
-
+        if(codegenModel.description != null) {
+            codegenModel.imports.add("ApiModel");
+        }
         if (allDefinitions != null && codegenModel != null && codegenModel.parentSchema != null && codegenModel.hasEnums) {
             final Model parentModel = allDefinitions.get(codegenModel.parentSchema);
             final CodegenModel parentCodegenModel = super.fromModel(codegenModel.parent, parentModel);
@@ -584,6 +597,7 @@ public class JavaClientCodegen extends DefaultCodegen implements CodegenConfig {
         for (Object _mo : models) {
             Map<String, Object> mo = (Map<String, Object>) _mo;
             CodegenModel cm = (CodegenModel) mo.get("model");
+
             for (CodegenProperty var : cm.vars) {
                 Map<String, Object> allowableValues = var.allowableValues;
 

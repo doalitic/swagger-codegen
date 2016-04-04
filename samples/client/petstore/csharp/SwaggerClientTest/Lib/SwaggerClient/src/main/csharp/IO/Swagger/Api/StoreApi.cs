@@ -18,13 +18,35 @@ namespace IO.Swagger.Api
         #region Synchronous Operations
         
         /// <summary>
+        /// Delete purchase order by ID
+        /// </summary>
+        /// <remarks>
+        /// For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="orderId">ID of the order that needs to be deleted</param>
+        /// <returns></returns>
+        void DeleteOrder (string orderId);
+  
+        /// <summary>
+        /// Delete purchase order by ID
+        /// </summary>
+        /// <remarks>
+        /// For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="orderId">ID of the order that needs to be deleted</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> DeleteOrderWithHttpInfo (string orderId);
+        
+        /// <summary>
         /// Finds orders by status
         /// </summary>
         /// <remarks>
         /// A single status value can be provided as a string
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="status">Status value that needs to be considered for query</param>
+        /// <param name="status">Status value that needs to be considered for query (optional, default to placed)</param>
         /// <returns>List&lt;Order&gt;</returns>
         List<Order> FindOrdersByStatus (string status = null);
   
@@ -35,7 +57,7 @@ namespace IO.Swagger.Api
         /// A single status value can be provided as a string
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="status">Status value that needs to be considered for query</param>
+        /// <param name="status">Status value that needs to be considered for query (optional, default to placed)</param>
         /// <returns>ApiResponse of List&lt;Order&gt;</returns>
         ApiResponse<List<Order>> FindOrdersByStatusWithHttpInfo (string status = null);
         
@@ -80,28 +102,6 @@ namespace IO.Swagger.Api
         ApiResponse<Object> GetInventoryInObjectWithHttpInfo ();
         
         /// <summary>
-        /// Place an order for a pet
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">order placed for purchasing the pet</param>
-        /// <returns>Order</returns>
-        Order PlaceOrder (Order body = null);
-  
-        /// <summary>
-        /// Place an order for a pet
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">order placed for purchasing the pet</param>
-        /// <returns>ApiResponse of Order</returns>
-        ApiResponse<Order> PlaceOrderWithHttpInfo (Order body = null);
-        
-        /// <summary>
         /// Find purchase order by ID
         /// </summary>
         /// <remarks>
@@ -124,16 +124,31 @@ namespace IO.Swagger.Api
         ApiResponse<Order> GetOrderByIdWithHttpInfo (string orderId);
         
         /// <summary>
-        /// Delete purchase order by ID
+        /// Place an order for a pet
         /// </summary>
         /// <remarks>
-        /// For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="orderId">ID of the order that needs to be deleted</param>
-        /// <returns></returns>
-        void DeleteOrder (string orderId);
+        /// <param name="body">order placed for purchasing the pet (optional)</param>
+        /// <returns>Order</returns>
+        Order PlaceOrder (Order body = null);
   
+        /// <summary>
+        /// Place an order for a pet
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body">order placed for purchasing the pet (optional)</param>
+        /// <returns>ApiResponse of Order</returns>
+        ApiResponse<Order> PlaceOrderWithHttpInfo (Order body = null);
+        
+        #endregion Synchronous Operations
+        
+        #region Asynchronous Operations
+        
         /// <summary>
         /// Delete purchase order by ID
         /// </summary>
@@ -142,12 +157,19 @@ namespace IO.Swagger.Api
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="orderId">ID of the order that needs to be deleted</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> DeleteOrderWithHttpInfo (string orderId);
-        
-        #endregion Synchronous Operations
-        
-        #region Asynchronous Operations
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task DeleteOrderAsync (string orderId);
+
+        /// <summary>
+        /// Delete purchase order by ID
+        /// </summary>
+        /// <remarks>
+        /// For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// </remarks>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="orderId">ID of the order that needs to be deleted</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteOrderAsyncWithHttpInfo (string orderId);
         
         /// <summary>
         /// Finds orders by status
@@ -156,7 +178,7 @@ namespace IO.Swagger.Api
         /// A single status value can be provided as a string
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="status">Status value that needs to be considered for query</param>
+        /// <param name="status">Status value that needs to be considered for query (optional, default to placed)</param>
         /// <returns>Task of List&lt;Order&gt;</returns>
         System.Threading.Tasks.Task<List<Order>> FindOrdersByStatusAsync (string status = null);
 
@@ -167,7 +189,7 @@ namespace IO.Swagger.Api
         /// A single status value can be provided as a string
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="status">Status value that needs to be considered for query</param>
+        /// <param name="status">Status value that needs to be considered for query (optional, default to placed)</param>
         /// <returns>Task of ApiResponse (List&lt;Order&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<Order>>> FindOrdersByStatusAsyncWithHttpInfo (string status = null);
         
@@ -212,28 +234,6 @@ namespace IO.Swagger.Api
         System.Threading.Tasks.Task<ApiResponse<Object>> GetInventoryInObjectAsyncWithHttpInfo ();
         
         /// <summary>
-        /// Place an order for a pet
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">order placed for purchasing the pet</param>
-        /// <returns>Task of Order</returns>
-        System.Threading.Tasks.Task<Order> PlaceOrderAsync (Order body = null);
-
-        /// <summary>
-        /// Place an order for a pet
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">order placed for purchasing the pet</param>
-        /// <returns>Task of ApiResponse (Order)</returns>
-        System.Threading.Tasks.Task<ApiResponse<Order>> PlaceOrderAsyncWithHttpInfo (Order body = null);
-        
-        /// <summary>
         /// Find purchase order by ID
         /// </summary>
         /// <remarks>
@@ -256,26 +256,26 @@ namespace IO.Swagger.Api
         System.Threading.Tasks.Task<ApiResponse<Order>> GetOrderByIdAsyncWithHttpInfo (string orderId);
         
         /// <summary>
-        /// Delete purchase order by ID
+        /// Place an order for a pet
         /// </summary>
         /// <remarks>
-        /// For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="orderId">ID of the order that needs to be deleted</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task DeleteOrderAsync (string orderId);
+        /// <param name="body">order placed for purchasing the pet (optional)</param>
+        /// <returns>Task of Order</returns>
+        System.Threading.Tasks.Task<Order> PlaceOrderAsync (Order body = null);
 
         /// <summary>
-        /// Delete purchase order by ID
+        /// Place an order for a pet
         /// </summary>
         /// <remarks>
-        /// For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// 
         /// </remarks>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="orderId">ID of the order that needs to be deleted</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> DeleteOrderAsyncWithHttpInfo (string orderId);
+        /// <param name="body">order placed for purchasing the pet (optional)</param>
+        /// <returns>Task of ApiResponse (Order)</returns>
+        System.Threading.Tasks.Task<ApiResponse<Order>> PlaceOrderAsyncWithHttpInfo (Order body = null);
         
         #endregion Asynchronous Operations
         
@@ -293,6 +293,12 @@ namespace IO.Swagger.Api
         public StoreApi(String basePath)
         {
             this.Configuration = new Configuration(new ApiClient(basePath));
+
+            // ensure API client has configuration ready
+            if (Configuration.ApiClient.Configuration == null)
+            {
+                this.Configuration.ApiClient.Configuration = this.Configuration;
+            }
         }
     
         /// <summary>
@@ -307,6 +313,12 @@ namespace IO.Swagger.Api
                 this.Configuration = Configuration.Default; 
             else
                 this.Configuration = configuration;
+
+            // ensure API client has configuration ready
+            if (Configuration.ApiClient.Configuration == null)
+            {
+                this.Configuration.ApiClient.Configuration = this.Configuration;
+            }
         }
 
         /// <summary>
@@ -358,10 +370,166 @@ namespace IO.Swagger.Api
    
         
         /// <summary>
+        /// Delete purchase order by ID For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="orderId">ID of the order that needs to be deleted</param> 
+        /// <returns></returns>
+        public void DeleteOrder (string orderId)
+        {
+             DeleteOrderWithHttpInfo(orderId);
+        }
+
+        /// <summary>
+        /// Delete purchase order by ID For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="orderId">ID of the order that needs to be deleted</param> 
+        /// <returns>ApiResponse of Object(void)</returns>
+        public ApiResponse<Object> DeleteOrderWithHttpInfo (string orderId)
+        {
+            
+            // verify the required parameter 'orderId' is set
+            if (orderId == null)
+                throw new ApiException(400, "Missing required parameter 'orderId' when calling StoreApi->DeleteOrder");
+            
+    
+            var localVarPath = "/store/order/{orderId}";
+    
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json", "application/xml"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            // set "format" to json by default
+            // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
+            localVarPathParams.Add("format", "json");
+            if (orderId != null) localVarPathParams.Add("orderId", Configuration.ApiClient.ParameterToString(orderId)); // path parameter
+            
+            
+            
+            
+            
+
+            
+    
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+    
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling DeleteOrder: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling DeleteOrder: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+    
+            
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
+        }
+
+        
+        /// <summary>
+        /// Delete purchase order by ID For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="orderId">ID of the order that needs to be deleted</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task DeleteOrderAsync (string orderId)
+        {
+             await DeleteOrderAsyncWithHttpInfo(orderId);
+
+        }
+
+        /// <summary>
+        /// Delete purchase order by ID For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// </summary>
+        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="orderId">ID of the order that needs to be deleted</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteOrderAsyncWithHttpInfo (string orderId)
+        {
+            // verify the required parameter 'orderId' is set
+            if (orderId == null) throw new ApiException(400, "Missing required parameter 'orderId' when calling DeleteOrder");
+            
+    
+            var localVarPath = "/store/order/{orderId}";
+    
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new Dictionary<String, String>();
+            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                
+            };
+            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "application/json", "application/xml"
+            };
+            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            // set "format" to json by default
+            // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
+            localVarPathParams.Add("format", "json");
+            if (orderId != null) localVarPathParams.Add("orderId", Configuration.ApiClient.ParameterToString(orderId)); // path parameter
+            
+            
+            
+            
+            
+
+            
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
+                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+ 
+            if (localVarStatusCode >= 400)
+                throw new ApiException (localVarStatusCode, "Error calling DeleteOrder: " + localVarResponse.Content, localVarResponse.Content);
+            else if (localVarStatusCode == 0)
+                throw new ApiException (localVarStatusCode, "Error calling DeleteOrder: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+
+            
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
+                null);
+        }
+        
+        /// <summary>
         /// Finds orders by status A single status value can be provided as a string
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="status">Status value that needs to be considered for query</param> 
+        /// <param name="status">Status value that needs to be considered for query (optional, default to placed)</param> 
         /// <returns>List&lt;Order&gt;</returns>
         public List<Order> FindOrdersByStatus (string status = null)
         {
@@ -373,7 +541,7 @@ namespace IO.Swagger.Api
         /// Finds orders by status A single status value can be provided as a string
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="status">Status value that needs to be considered for query</param> 
+        /// <param name="status">Status value that needs to be considered for query (optional, default to placed)</param> 
         /// <returns>ApiResponse of List&lt;Order&gt;</returns>
         public ApiResponse< List<Order> > FindOrdersByStatusWithHttpInfo (string status = null)
         {
@@ -449,7 +617,7 @@ namespace IO.Swagger.Api
         /// Finds orders by status A single status value can be provided as a string
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="status">Status value that needs to be considered for query</param>
+        /// <param name="status">Status value that needs to be considered for query (optional, default to placed)</param>
         /// <returns>Task of List&lt;Order&gt;</returns>
         public async System.Threading.Tasks.Task<List<Order>> FindOrdersByStatusAsync (string status = null)
         {
@@ -462,7 +630,7 @@ namespace IO.Swagger.Api
         /// Finds orders by status A single status value can be provided as a string
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="status">Status value that needs to be considered for query</param>
+        /// <param name="status">Status value that needs to be considered for query (optional, default to placed)</param>
         /// <returns>Task of ApiResponse (List&lt;Order&gt;)</returns>
         public async System.Threading.Tasks.Task<ApiResponse<List<Order>>> FindOrdersByStatusAsyncWithHttpInfo (string status = null)
         {
@@ -854,196 +1022,6 @@ namespace IO.Swagger.Api
         }
         
         /// <summary>
-        /// Place an order for a pet 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">order placed for purchasing the pet</param> 
-        /// <returns>Order</returns>
-        public Order PlaceOrder (Order body = null)
-        {
-             ApiResponse<Order> localVarResponse = PlaceOrderWithHttpInfo(body);
-             return localVarResponse.Data;
-        }
-
-        /// <summary>
-        /// Place an order for a pet 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">order placed for purchasing the pet</param> 
-        /// <returns>ApiResponse of Order</returns>
-        public ApiResponse< Order > PlaceOrderWithHttpInfo (Order body = null)
-        {
-            
-    
-            var localVarPath = "/store/order";
-    
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new Dictionary<String, String>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json", "application/xml"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            // set "format" to json by default
-            // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
-            localVarPathParams.Add("format", "json");
-            
-            
-            
-            
-            if (body.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = Configuration.ApiClient.Serialize(body); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = body; // byte array
-            }
-
-            // authentication (test_api_client_id) required
-            
-            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-test_api_client_id")))
-            {
-                localVarHeaderParams["x-test_api_client_id"] = Configuration.GetApiKeyWithPrefix("x-test_api_client_id");
-            }
-            // authentication (test_api_client_secret) required
-            
-            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-test_api_client_secret")))
-            {
-                localVarHeaderParams["x-test_api_client_secret"] = Configuration.GetApiKeyWithPrefix("x-test_api_client_secret");
-            }
-            
-    
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-    
-            if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling PlaceOrder: " + localVarResponse.Content, localVarResponse.Content);
-            else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling PlaceOrder: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-    
-            return new ApiResponse<Order>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Order) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Order)));
-            
-        }
-
-        
-        /// <summary>
-        /// Place an order for a pet 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">order placed for purchasing the pet</param>
-        /// <returns>Task of Order</returns>
-        public async System.Threading.Tasks.Task<Order> PlaceOrderAsync (Order body = null)
-        {
-             ApiResponse<Order> localVarResponse = await PlaceOrderAsyncWithHttpInfo(body);
-             return localVarResponse.Data;
-
-        }
-
-        /// <summary>
-        /// Place an order for a pet 
-        /// </summary>
-        /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="body">order placed for purchasing the pet</param>
-        /// <returns>Task of ApiResponse (Order)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Order>> PlaceOrderAsyncWithHttpInfo (Order body = null)
-        {
-            
-    
-            var localVarPath = "/store/order";
-    
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new Dictionary<String, String>();
-            var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-                
-            };
-            String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "application/json", "application/xml"
-            };
-            String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            // set "format" to json by default
-            // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
-            localVarPathParams.Add("format", "json");
-            
-            
-            
-            
-            if (body.GetType() != typeof(byte[]))
-            {
-                localVarPostBody = Configuration.ApiClient.Serialize(body); // http body (model) parameter
-            }
-            else
-            {
-                localVarPostBody = body; // byte array
-            }
-
-            
-            // authentication (test_api_client_id) required
-            
-            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-test_api_client_id")))
-            {
-                localVarHeaderParams["x-test_api_client_id"] = Configuration.GetApiKeyWithPrefix("x-test_api_client_id");
-            }
-            
-            // authentication (test_api_client_secret) required
-            
-            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-test_api_client_secret")))
-            {
-                localVarHeaderParams["x-test_api_client_secret"] = Configuration.GetApiKeyWithPrefix("x-test_api_client_secret");
-            }
-            
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
- 
-            if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling PlaceOrder: " + localVarResponse.Content, localVarResponse.Content);
-            else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling PlaceOrder: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
-
-            return new ApiResponse<Order>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                (Order) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Order)));
-            
-        }
-        
-        /// <summary>
         /// Find purchase order by ID For valid response try integer IDs with value &lt;= 5 or &gt; 10. Other values will generated exceptions
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
@@ -1228,31 +1206,28 @@ namespace IO.Swagger.Api
         }
         
         /// <summary>
-        /// Delete purchase order by ID For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// Place an order for a pet 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="orderId">ID of the order that needs to be deleted</param> 
-        /// <returns></returns>
-        public void DeleteOrder (string orderId)
+        /// <param name="body">order placed for purchasing the pet (optional)</param> 
+        /// <returns>Order</returns>
+        public Order PlaceOrder (Order body = null)
         {
-             DeleteOrderWithHttpInfo(orderId);
+             ApiResponse<Order> localVarResponse = PlaceOrderWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
-        /// Delete purchase order by ID For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// Place an order for a pet 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="orderId">ID of the order that needs to be deleted</param> 
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> DeleteOrderWithHttpInfo (string orderId)
+        /// <param name="body">order placed for purchasing the pet (optional)</param> 
+        /// <returns>ApiResponse of Order</returns>
+        public ApiResponse< Order > PlaceOrderWithHttpInfo (Order body = null)
         {
             
-            // verify the required parameter 'orderId' is set
-            if (orderId == null)
-                throw new ApiException(400, "Missing required parameter 'orderId' when calling StoreApi->DeleteOrder");
-            
     
-            var localVarPath = "/store/order/{orderId}";
+            var localVarPath = "/store/order";
     
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, String>();
@@ -1278,59 +1253,76 @@ namespace IO.Swagger.Api
             // set "format" to json by default
             // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
             localVarPathParams.Add("format", "json");
-            if (orderId != null) localVarPathParams.Add("orderId", Configuration.ApiClient.ParameterToString(orderId)); // path parameter
             
             
             
             
-            
+            if (body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
 
+            // authentication (test_api_client_id) required
+            
+            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-test_api_client_id")))
+            {
+                localVarHeaderParams["x-test_api_client_id"] = Configuration.GetApiKeyWithPrefix("x-test_api_client_id");
+            }
+            // authentication (test_api_client_secret) required
+            
+            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-test_api_client_secret")))
+            {
+                localVarHeaderParams["x-test_api_client_secret"] = Configuration.GetApiKeyWithPrefix("x-test_api_client_secret");
+            }
             
     
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarPath, 
-                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
     
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteOrder: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling PlaceOrder: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteOrder: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling PlaceOrder: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
     
-            
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<Order>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
+                (Order) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Order)));
+            
         }
 
         
         /// <summary>
-        /// Delete purchase order by ID For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// Place an order for a pet 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="orderId">ID of the order that needs to be deleted</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task DeleteOrderAsync (string orderId)
+        /// <param name="body">order placed for purchasing the pet (optional)</param>
+        /// <returns>Task of Order</returns>
+        public async System.Threading.Tasks.Task<Order> PlaceOrderAsync (Order body = null)
         {
-             await DeleteOrderAsyncWithHttpInfo(orderId);
+             ApiResponse<Order> localVarResponse = await PlaceOrderAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
         /// <summary>
-        /// Delete purchase order by ID For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+        /// Place an order for a pet 
         /// </summary>
         /// <exception cref="IO.Swagger.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="orderId">ID of the order that needs to be deleted</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> DeleteOrderAsyncWithHttpInfo (string orderId)
+        /// <param name="body">order placed for purchasing the pet (optional)</param>
+        /// <returns>Task of ApiResponse (Order)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Order>> PlaceOrderAsyncWithHttpInfo (Order body = null)
         {
-            // verify the required parameter 'orderId' is set
-            if (orderId == null) throw new ApiException(400, "Missing required parameter 'orderId' when calling DeleteOrder");
             
     
-            var localVarPath = "/store/order/{orderId}";
+            var localVarPath = "/store/order";
     
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new Dictionary<String, String>();
@@ -1356,31 +1348,51 @@ namespace IO.Swagger.Api
             // set "format" to json by default
             // e.g. /pet/{petId}.{format} becomes /pet/{petId}.json
             localVarPathParams.Add("format", "json");
-            if (orderId != null) localVarPathParams.Add("orderId", Configuration.ApiClient.ParameterToString(orderId)); // path parameter
             
             
             
             
-            
+            if (body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
 
+            
+            // authentication (test_api_client_id) required
+            
+            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-test_api_client_id")))
+            {
+                localVarHeaderParams["x-test_api_client_id"] = Configuration.GetApiKeyWithPrefix("x-test_api_client_id");
+            }
+            
+            // authentication (test_api_client_secret) required
+            
+            if (!String.IsNullOrEmpty(Configuration.GetApiKeyWithPrefix("x-test_api_client_secret")))
+            {
+                localVarHeaderParams["x-test_api_client_secret"] = Configuration.GetApiKeyWithPrefix("x-test_api_client_secret");
+            }
             
 
             // make the HTTP request
             IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarPath, 
-                Method.DELETE, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams, 
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
  
             if (localVarStatusCode >= 400)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteOrder: " + localVarResponse.Content, localVarResponse.Content);
+                throw new ApiException (localVarStatusCode, "Error calling PlaceOrder: " + localVarResponse.Content, localVarResponse.Content);
             else if (localVarStatusCode == 0)
-                throw new ApiException (localVarStatusCode, "Error calling DeleteOrder: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
+                throw new ApiException (localVarStatusCode, "Error calling PlaceOrder: " + localVarResponse.ErrorMessage, localVarResponse.ErrorMessage);
 
-            
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<Order>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => x.Value.ToString()),
-                null);
+                (Order) Configuration.ApiClient.Deserialize(localVarResponse, typeof(Order)));
+            
         }
         
     }

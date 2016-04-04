@@ -24,10 +24,69 @@ module Petstore
       @api_client = api_client
     end
 
+    # Delete purchase order by ID
+    # For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
+    # @param order_id ID of the order that needs to be deleted
+    # @param [Hash] opts the optional parameters
+    # @return [nil]
+    def delete_order(order_id, opts = {})
+      delete_order_with_http_info(order_id, opts)
+      return nil
+    end
+
+    # Delete purchase order by ID
+    # For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
+    # @param order_id ID of the order that needs to be deleted
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
+    def delete_order_with_http_info(order_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: StoreApi#delete_order ..."
+      end
+      
+      # verify the required parameter 'order_id' is set
+      fail "Missing the required parameter 'order_id' when calling delete_order" if order_id.nil?
+      
+      # resource path
+      local_var_path = "/store/order/{orderId}".sub('{format}','json').sub('{' + 'orderId' + '}', order_id.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+
+      # HTTP header 'Accept' (if needed)
+      _header_accept = ['application/json', 'application/xml']
+      _header_accept_result = @api_client.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+
+      # HTTP header 'Content-Type'
+      _header_content_type = []
+      header_params['Content-Type'] = @api_client.select_header_content_type(_header_content_type)
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      
+      auth_names = []
+      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StoreApi#delete_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # Finds orders by status
     # A single status value can be provided as a string
     # @param [Hash] opts the optional parameters
-    # @option opts [String] :status Status value that needs to be considered for query
+    # @option opts [String] :status Status value that needs to be considered for query (default to placed)
     # @return [Array<Order>]
     def find_orders_by_status(opts = {})
       data, status_code, headers = find_orders_by_status_with_http_info(opts)
@@ -141,7 +200,7 @@ module Petstore
       return data, status_code, headers
     end
 
-    # Fake endpoint to test arbitrary object return by &#39;Get inventory&#39;
+    # Fake endpoint to test arbitrary object return by 'Get inventory'
     # Returns an arbitrary object which is actually a map of status codes to quantities
     # @param [Hash] opts the optional parameters
     # @return [Object]
@@ -192,6 +251,66 @@ module Petstore
         :return_type => 'Object')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: StoreApi#get_inventory_in_object\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
+    # Find purchase order by ID
+    # For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
+    # @param order_id ID of pet that needs to be fetched
+    # @param [Hash] opts the optional parameters
+    # @return [Order]
+    def get_order_by_id(order_id, opts = {})
+      data, status_code, headers = get_order_by_id_with_http_info(order_id, opts)
+      return data
+    end
+
+    # Find purchase order by ID
+    # For valid response try integer IDs with value &lt;= 5 or &gt; 10. Other values will generated exceptions
+    # @param order_id ID of pet that needs to be fetched
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(Order, Fixnum, Hash)>] Order data, response status code and response headers
+    def get_order_by_id_with_http_info(order_id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "Calling API: StoreApi#get_order_by_id ..."
+      end
+      
+      # verify the required parameter 'order_id' is set
+      fail "Missing the required parameter 'order_id' when calling get_order_by_id" if order_id.nil?
+      
+      # resource path
+      local_var_path = "/store/order/{orderId}".sub('{format}','json').sub('{' + 'orderId' + '}', order_id.to_s)
+
+      # query parameters
+      query_params = {}
+
+      # header parameters
+      header_params = {}
+
+      # HTTP header 'Accept' (if needed)
+      _header_accept = ['application/json', 'application/xml']
+      _header_accept_result = @api_client.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
+
+      # HTTP header 'Content-Type'
+      _header_content_type = []
+      header_params['Content-Type'] = @api_client.select_header_content_type(_header_content_type)
+
+      # form parameters
+      form_params = {}
+
+      # http body (model)
+      post_body = nil
+      
+      auth_names = ['test_api_key_header', 'test_api_key_query']
+      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => 'Order')
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: StoreApi#get_order_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -249,125 +368,6 @@ module Petstore
         :return_type => 'Order')
       if @api_client.config.debugging
         @api_client.config.logger.debug "API called: StoreApi#place_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
-    # Find purchase order by ID
-    # For valid response try integer IDs with value &lt;= 5 or &gt; 10. Other values will generated exceptions
-    # @param order_id ID of pet that needs to be fetched
-    # @param [Hash] opts the optional parameters
-    # @return [Order]
-    def get_order_by_id(order_id, opts = {})
-      data, status_code, headers = get_order_by_id_with_http_info(order_id, opts)
-      return data
-    end
-
-    # Find purchase order by ID
-    # For valid response try integer IDs with value &lt;= 5 or &gt; 10. Other values will generated exceptions
-    # @param order_id ID of pet that needs to be fetched
-    # @param [Hash] opts the optional parameters
-    # @return [Array<(Order, Fixnum, Hash)>] Order data, response status code and response headers
-    def get_order_by_id_with_http_info(order_id, opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "Calling API: StoreApi#get_order_by_id ..."
-      end
-      
-      # verify the required parameter 'order_id' is set
-      fail "Missing the required parameter 'order_id' when calling get_order_by_id" if order_id.nil?
-      
-      # resource path
-      local_var_path = "/store/order/{orderId}".sub('{format}','json').sub('{' + 'orderId' + '}', order_id.to_s)
-
-      # query parameters
-      query_params = {}
-
-      # header parameters
-      header_params = {}
-
-      # HTTP header 'Accept' (if needed)
-      _header_accept = ['application/json', 'application/xml']
-      _header_accept_result = @api_client.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
-
-      # HTTP header 'Content-Type'
-      _header_content_type = []
-      header_params['Content-Type'] = @api_client.select_header_content_type(_header_content_type)
-
-      # form parameters
-      form_params = {}
-
-      # http body (model)
-      post_body = nil
-      
-      auth_names = ['test_api_key_query', 'test_api_key_header']
-      data, status_code, headers = @api_client.call_api(:GET, local_var_path,
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names,
-        :return_type => 'Order')
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: StoreApi#get_order_by_id\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
-      end
-      return data, status_code, headers
-    end
-
-    # Delete purchase order by ID
-    # For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
-    # @param order_id ID of the order that needs to be deleted
-    # @param [Hash] opts the optional parameters
-    # @return [nil]
-    def delete_order(order_id, opts = {})
-      delete_order_with_http_info(order_id, opts)
-      return nil
-    end
-
-    # Delete purchase order by ID
-    # For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
-    # @param order_id ID of the order that needs to be deleted
-    # @param [Hash] opts the optional parameters
-    # @return [Array<(nil, Fixnum, Hash)>] nil, response status code and response headers
-    def delete_order_with_http_info(order_id, opts = {})
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "Calling API: StoreApi#delete_order ..."
-      end
-      
-      # verify the required parameter 'order_id' is set
-      fail "Missing the required parameter 'order_id' when calling delete_order" if order_id.nil?
-      
-      # resource path
-      local_var_path = "/store/order/{orderId}".sub('{format}','json').sub('{' + 'orderId' + '}', order_id.to_s)
-
-      # query parameters
-      query_params = {}
-
-      # header parameters
-      header_params = {}
-
-      # HTTP header 'Accept' (if needed)
-      _header_accept = ['application/json', 'application/xml']
-      _header_accept_result = @api_client.select_header_accept(_header_accept) and header_params['Accept'] = _header_accept_result
-
-      # HTTP header 'Content-Type'
-      _header_content_type = []
-      header_params['Content-Type'] = @api_client.select_header_content_type(_header_content_type)
-
-      # form parameters
-      form_params = {}
-
-      # http body (model)
-      post_body = nil
-      
-      auth_names = []
-      data, status_code, headers = @api_client.call_api(:DELETE, local_var_path,
-        :header_params => header_params,
-        :query_params => query_params,
-        :form_params => form_params,
-        :body => post_body,
-        :auth_names => auth_names)
-      if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: StoreApi#delete_order\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

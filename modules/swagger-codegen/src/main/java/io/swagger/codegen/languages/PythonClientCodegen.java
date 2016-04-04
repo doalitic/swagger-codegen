@@ -110,6 +110,8 @@ public class PythonClientCodegen extends DefaultCodegen implements CodegenConfig
         supportingFiles.add(new SupportingFile("__init__package.mustache", swaggerFolder, "__init__.py"));
         supportingFiles.add(new SupportingFile("__init__model.mustache", modelPackage, "__init__.py"));
         supportingFiles.add(new SupportingFile("__init__api.mustache", apiPackage, "__init__.py"));
+        supportingFiles.add(new SupportingFile("git_push.sh.mustache", "", "git_push.sh"));
+        supportingFiles.add(new SupportingFile("gitignore.mustache", "", ".gitignore"));
     }
 
     private static String dropDots(String str) {
@@ -222,6 +224,12 @@ public class PythonClientCodegen extends DefaultCodegen implements CodegenConfig
             name = "model_" + name; // e.g. return => ModelReturn (after camelize)
         }
 
+        // model name starts with number
+        if (name.matches("^\\d.*")) {
+            LOGGER.warn(name + " (model name starts with number) cannot be used as model name. Renamed to " + camelize("model_" + name));
+            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
+        }
+
         if (!StringUtils.isEmpty(modelNamePrefix)) {
             name = modelNamePrefix + "_" + name;
         }
@@ -245,6 +253,12 @@ public class PythonClientCodegen extends DefaultCodegen implements CodegenConfig
         if (isReservedWord(name)) {
             LOGGER.warn(name + " (reserved word) cannot be used as model filename. Renamed to " + underscore(dropDots("model_" + name)));
             name = "model_" + name; // e.g. return => ModelReturn (after camelize)
+        }
+
+        // model name starts with number
+        if (name.matches("^\\d.*")) {
+            LOGGER.warn(name + " (model name starts with number) cannot be used as model name. Renamed to " + underscore("model_" + name));
+            name = "model_" + name; // e.g. 200Response => Model200Response (after camelize)
         }
 
         if (!StringUtils.isEmpty(modelNamePrefix)) {
