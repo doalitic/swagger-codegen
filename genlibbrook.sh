@@ -14,7 +14,7 @@ curl -o /dev/null -s https://api.brook.io/api-docs
 # Generate libbrook
 #
 ./run-in-docker.sh generate \
-  -i https://api.brook.io/docs \
+  -i https://api-stg.brook.io/docs \
   -l python \
   -o samples/client/libbrook \
   -c libbrook.config.json
